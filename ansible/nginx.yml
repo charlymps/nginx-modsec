@@ -59,8 +59,8 @@
     - name: Clone modsecurity OWASP core rules repository
       git: repo=https://github.com/SpiderLabs/owasp-modsecurity-crs.git dest=/tmp/owasp-modsecurity-crs update=no
     - name: Configure OWASP core rules (configuration file)
-      command: /bin/cat "/tmp/owasp-modsecurity-crs/modsecurity_crs_10_setup.conf.example >> /etc/nginx/mod_security.conf"
+      shell: /bin/cat /tmp/owasp-modsecurity-crs/modsecurity_crs_10_setup.conf.example >> /etc/nginx/mod_security.conf
     - name: Configure OWASP core rules (base rules)
-      command: /bin/cat "/tmp/owasp-modsecurity-crs/base_rules/*.conf >> /usr/local/nginx/conf/mod_security.conf"
+      shell: /bin/cat /tmp/owasp-modsecurity-crs/base_rules/*.conf >> /etc/nginx/mod_security.conf
     - name: Configure OWASP core rules (data files)
-      command: /bin/cp "/tmp/owasp-modsecurity-crs/base_rules/*.data" /usr/local/nginx/conf/
+      shell: /bin/cp /tmp/owasp-modsecurity-crs/base_rules/*.data /etc/nginx/
