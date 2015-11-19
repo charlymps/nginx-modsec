@@ -26,8 +26,14 @@
       group: name=nginx
     - name: Add nginx user
       user: name=nginx comment="Nginx web server" shell=/sbin/nologin home=/var/lib/nginx group=nginx
+    - name: Set permissions of modsecurity log directory
+      file: path=/var/log/mlogc/data owner=root group=nginx mode=0770
     - name: Clone modsecurity project
       git: repo=https://github.com/SpiderLabs/ModSecurity.git dest=/root/modsecurity update=no
+    - name: Copy patch file
+      copy: src=../patches/modsec.patch dest=/root/modsec.patch
+    - name: Apply patch
+      command: /usr/bin/patch -p2 -i /root/modsec.patch chdir=/root
     - name: Compile modsecurity step 1
       command: ./autogen.sh chdir=/root/modsecurity
     - name: Compile modsecurity step 2

@@ -1,0 +1,12 @@
+diff -Naur /root/modsecurity/apache2/msc_logging.c /root/modsecurity-patched/apache2/msc_logging.c
+--- /root/modsecurity/apache2/msc_logging.c	2015-11-18 19:44:18.103869115 +0000
++++ /root/modsecurity-patched/apache2/msc_logging.c	2015-11-18 20:03:26.826943022 +0000
+@@ -853,7 +853,7 @@
+ 
+         /* There are no response headers (or the status line) in HTTP 0.9 */
+         if (msr->response_headers_sent) {
+-            if (msr->status_line != NULL) {
++            if (msr->status_line != NULL && msr->status_line[0] != '\0' ) {
+                 text = apr_psprintf(msr->mp, "%s %s\n", msr->response_protocol,
+                         msr->status_line);
+             } else {
