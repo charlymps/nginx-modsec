@@ -70,3 +70,5 @@
       shell: /bin/cat /tmp/owasp-modsecurity-crs/base_rules/*.conf >> /etc/nginx/mod_security.conf
     - name: Configure OWASP core rules (data files)
       shell: /bin/cp /tmp/owasp-modsecurity-crs/base_rules/*.data /etc/nginx/
+    - name: Start nginx service
+      service: name=nginx state=started
